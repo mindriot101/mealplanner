@@ -6,7 +6,7 @@ from .uuid_type import UUID
 
 class Ingredient(db.Model):
     id = db.Column(UUID(), primary_key=True, default=uuid.uuid4, unique=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False, unique=True)
     fat = db.Column(db.Float)
     saturated_fat = db.Column(db.Float)
     carbohydrate = db.Column(db.Float)

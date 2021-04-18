@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from marshmallow import fields, Schema, ValidationError
+from sqlalchemy.exc import IntegrityError
 
 from ..models import Ingredient
 from ..db import db
@@ -12,10 +13,16 @@ class CreateIngredientSchema(Schema):
 
 class IngredientsRoute(Resource):
     def post(self):
-        payload = CreateIngredientSchema().load(request.get_json())
+        try:
+            payload = CreateIngredientSchema().load(request.get_json())
+        except ValidationError as e:
+            return {"message": "input validation error", "errors": e.messages}, 400
 
         ingredient = Ingredient(**payload)
         db.session.add(ingredient)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except IntegrityError as e:
+            return {"message": "integrity error"}, 400
 
         return ingredient.to_dict(), 201

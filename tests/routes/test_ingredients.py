@@ -1,10 +1,7 @@
 from mealplanner.db import db
 
 
-def test_create_ingredient(client, mocker):
-    uuidfn = mocker.MagicMock(return_value="uuid")
-    uuid4 = mocker.patch("uuid.uuid4", uuidfn)
-
+def test_create_ingredient(client):
     r = client.post("/ingredients", json={"name": "cheese"})
 
     assert r.status_code == 201
@@ -13,3 +10,12 @@ def test_create_ingredient(client, mocker):
     assert r.json["saturated_fat"] is None
     assert r.json["carbohydrate"] is None
     assert r.json["protein"] is None
+
+
+def test_no_duplicates(client):
+    r = client.post("/ingredients", json={"name": "cheese"})
+    assert r.status_code == 201
+
+    r = client.post("/ingredients", json={"name": "cheese"})
+    assert r.status_code == 400
+    assert r.json["message"] == "integrity error"
