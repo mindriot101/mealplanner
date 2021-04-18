@@ -41,6 +41,7 @@ class Membership(db.Model):
     ingredient = db.relationship("Ingredient", backref="memberships")
     recipe_id = db.Column(UUID, db.ForeignKey("recipe.id", ondelete="CASCADE"))
     recipes = db.relationship("Recipe", backref="memberships")
+    count = db.Column(db.Integer, nullable=False)
 
     def to_dict(self):
         return {
