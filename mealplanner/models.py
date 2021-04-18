@@ -31,7 +31,6 @@ class Recipe(db.Model):
         return {
             "id": str(self.id),
             "name": self.name,
-            "membership": self.membership,
         }
 
 
@@ -47,6 +46,8 @@ class Membership(db.Model):
         return {
             "id": str(self.id),
             "recipe": self.recipe.to_dict(),
+            "ingredient": self.ingredient.to_dict(),
+            "count": self.count,
         }
 
 

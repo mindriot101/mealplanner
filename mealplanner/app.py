@@ -6,6 +6,8 @@ from flask_restful import Api
 
 from .db import db
 from .routes.ingredients import IngredientsRoute
+from .routes.recipes import RecipesRoute
+from .routes.recipe import RecipeRoute
 
 
 def create_app(testing=False):
@@ -21,5 +23,7 @@ def create_app(testing=False):
     Migrate(app, db)
 
     api.add_resource(IngredientsRoute, "/ingredients")
+    api.add_resource(RecipesRoute, "/recipes")
+    api.add_resource(RecipeRoute, "/recipes/<uuid:id>")
 
     return app
