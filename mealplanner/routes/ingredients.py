@@ -25,7 +25,7 @@ class IngredientsRoute(Resource):
         db.session.add(ingredient)
         try:
             db.session.commit()
-        except IntegrityError as e:
+        except IntegrityError:
             return {"message": "integrity error"}, 400
 
         return ingredient.to_dict(), 201

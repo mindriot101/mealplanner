@@ -8,14 +8,6 @@ from .db import db
 from .routes.ingredients import IngredientsRoute
 
 
-class MealplannerApi(Api):
-    def handle_error(self, ex):
-        if isinstance(ex, AuthError):
-            return ex.error, ex.status_code
-
-        return super().handle_error(ex)
-
-
 def create_app(testing=False):
     app = Flask(__name__)
     app.config["TESTING"] = testing
@@ -24,7 +16,7 @@ def create_app(testing=False):
     else:
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    api = MealplannerApi(app)
+    api = Api(app)
     db.init_app(app)
     Migrate(app, db)
 
