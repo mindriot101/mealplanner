@@ -1,3 +1,5 @@
 .aws-sam
 *.pyc
 *.sqlite3
+/.coverage
+/htmlcov/
