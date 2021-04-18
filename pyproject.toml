@@ -19,6 +19,7 @@ pytest = "^6.2.3"
 pytest-cov = "^2.11.1"
 pytest-pudb = "^0.7.0"
 ipython = "^7.22.0"
+pytest-mock = "^3.5.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
