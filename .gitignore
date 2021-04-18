@@ -1,2 +1,3 @@
 .aws-sam
 *.pyc
+*.sqlite3
