@@ -12,6 +12,9 @@ class CreateIngredientSchema(Schema):
 
 
 class IngredientsRoute(Resource):
+    def get(self):
+        return {"ingredients": [i.to_dict() for i in Ingredient.query.all()]}
+
     def post(self):
         try:
             payload = CreateIngredientSchema().load(request.get_json())
