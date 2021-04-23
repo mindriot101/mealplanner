@@ -16,6 +16,18 @@ def index():
     return render_template("index.html")
 
 
+class IngredientView(MethodView):
+    def __init__(self, ingredient_service):
+        self.ingredient_service = ingredient_service
+
+    def post(self, id):
+        # delete the ingredient
+        ingredient = Ingredient.query.get(id)
+        db.session.delete(ingredient)
+        db.session.commit()
+        return redirect(url_for("ingredients"))
+
+
 class IngredientsView(MethodView):
     def __init__(self, ingredient_service):
         self.ingredient_service = ingredient_service

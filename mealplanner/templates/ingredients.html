@@ -5,7 +5,12 @@
 
 <ul>
 {% for ingredient in ingredients %}
-<li>{{ ingredient.name }}</li>
+<li>
+    {{ ingredient.name }}
+    <form method="POST" action="{{ url_for('ingredient', id=ingredient.id) }}">
+        <button type="submit">Delete</button>
+    </form>
+</li>
 {% endfor %}
 </ul>
 
