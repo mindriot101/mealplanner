@@ -6,11 +6,13 @@ from wtforms.widgets.html5 import NumberInput
 
 class NewIngredientForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
-    fat = FloatField("Fat", validators=[Optional()], widget=NumberInput())
+    fat = FloatField("Fat", validators=[Optional()], widget=NumberInput(step=0.1))
     saturated_fat = FloatField(
-        "Saturated fat", validators=[Optional()], widget=NumberInput()
+        "Saturated fat", validators=[Optional()], widget=NumberInput(step=0.1)
     )
     carbohydrate = FloatField(
-        "Carbohydrate", validators=[Optional()], widget=NumberInput()
+        "Carbohydrate", validators=[Optional()], widget=NumberInput(step=0.1)
     )
-    protein = FloatField("Protein", validators=[Optional()], widget=NumberInput())
+    protein = FloatField(
+        "Protein", validators=[Optional()], widget=NumberInput(step=0.1)
+    )

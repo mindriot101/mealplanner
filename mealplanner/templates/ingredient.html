@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ ingredient.name }}</h2>
+
+<ul>
+{% if ingredient.fat %}<li>Fat: {{ ingredient.fat }}</li>{% endif %}
+{% if ingredient.saturated_fat %}<li>Saturated fat: {{ ingredient.saturated_fat }}</li>{% endif %}
+{% if ingredient.carbohydrate %}<li>Carbohydrate: {{ ingredient.carbohydrate }}</li>{% endif %}
+{% if ingredient.protein %}<li>Protein: {{ ingredient.protein }}</li>{% endif %}
+</ul>
+
+<a href="{{ url_for('ingredients') }}">Ingredients</a>
+
+{% endblock content %}
+

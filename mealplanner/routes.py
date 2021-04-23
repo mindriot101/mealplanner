@@ -20,11 +20,12 @@ class IngredientView(MethodView):
     def __init__(self, ingredient_service):
         self.ingredient_service = ingredient_service
 
+    def get(self, id):
+        ingredient = self.ingredient_service.get(id)
+        return render_template("ingredient.html", ingredient=ingredient)
+
     def post(self, id):
-        # delete the ingredient
-        ingredient = Ingredient.query.get(id)
-        db.session.delete(ingredient)
-        db.session.commit()
+        self.ingredient_service.delete(id)
         return redirect(url_for("ingredients"))
 
 
