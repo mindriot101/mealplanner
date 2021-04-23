@@ -2,6 +2,12 @@
 
 {% block content %}
 
+{% for field, errors in form.errors.items() %}
+<div>
+    {{ form[field].label }}: {{ ", ".join(errors) }}
+</div>
+{% endfor %}
+
 <form method="POST" action="{{ url_for('ingredients') }}">
     {{ form.csrf_token }}
     {{ form.name.label }} {{ form.name(size=20) }}

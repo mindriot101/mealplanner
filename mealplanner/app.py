@@ -1,28 +1,54 @@
 import os
+import logging
 
 from flask import Flask
 from flask_migrate import Migrate  # type: ignore
 
 from .db import db
 from .routes import index, IngredientsView, NewIngredientsView
+from .services.ingredient_service import IngredientService
+
+try:
+    from flask_debugtoolbar import DebugToolbarExtension
+except ImportError:
+    DEBUG_TOOLBAR = False
+else:
+    DEBUG_TOOLBAR = True
 
 
 def create_app(testing=False):
+    logging.basicConfig(level=logging.WARNING)
+    logger = logging.getLogger(__name__)
     app = Flask(__name__)
+    if app.debug:
+        logger.setLevel(logging.DEBUG)
+    logger.info("starting app")
     app.config["TESTING"] = testing
     if testing:
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
     else:
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
     app.secret_key = os.getenv("MEALPLANNER_SECRET_KEY", "secret-key")
     db.init_app(app)
+    if DEBUG_TOOLBAR:
+        DebugToolbarExtension(app)
     Migrate(app, db)
 
+    # Service objects
+    ingredient_service = IngredientService()
+
     app.add_url_rule("/", "index", index)
-    app.add_url_rule("/ingredients/", view_func=IngredientsView.as_view("ingredients"))
     app.add_url_rule(
-        "/ingredients/new/", view_func=NewIngredientsView.as_view("new-ingredients")
+        "/ingredients/",
+        view_func=IngredientsView.as_view(
+            "ingredients", ingredient_service=ingredient_service
+        ),
+    )
+    app.add_url_rule(
+        "/ingredients/new/",
+        view_func=NewIngredientsView.as_view("new-ingredients"),
     )
 
     return app

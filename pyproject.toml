@@ -21,6 +21,7 @@ pytest-cov = "^2.11.1"
 pytest-pudb = "^0.7.0"
 ipython = "^7.22.0"
 pytest-mock = "^3.5.1"
+Flask-DebugToolbar = "^0.11.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
