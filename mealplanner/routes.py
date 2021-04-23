@@ -1,11 +1,11 @@
 import logging
 
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from flask.views import MethodView
 from sqlalchemy.exc import IntegrityError
 
 from .models import Ingredient
-from .forms import NewIngredientForm
+from .forms import NewIngredientForm, NewRecipeForm
 from .db import db
 
 
@@ -56,3 +56,20 @@ class NewIngredientsView(MethodView):
     def get(self):
         form = NewIngredientForm()
         return render_template("new-ingredients.html", form=form)
+
+
+class RecipesView(MethodView):
+    def get(self):
+        return render_template("recipes.html")
+
+    def post(self):
+        form = NewRecipeForm()
+        if request.form.get("add-ingredient", None) is not None:
+            form.memberships.append_entry()
+            return render_template("new-recipe.html", form=form)
+
+
+class NewRecipesView(MethodView):
+    def get(self):
+        form = NewRecipeForm()
+        return render_template("new-recipe.html", form=form)

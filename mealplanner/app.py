@@ -5,7 +5,14 @@ from flask import Flask
 from flask_migrate import Migrate  # type: ignore
 
 from .db import db
-from .routes import index, IngredientsView, NewIngredientsView, IngredientView
+from .routes import (
+    index,
+    IngredientsView,
+    NewIngredientsView,
+    IngredientView,
+    RecipesView,
+    NewRecipesView,
+)
 from .services.ingredient_service import IngredientService
 
 try:
@@ -40,6 +47,11 @@ def create_app(testing=False):
     ingredient_service = IngredientService()
 
     app.add_url_rule("/", "index", index)
+    app.add_url_rule("/recipes/", view_func=RecipesView.as_view("recipes"))
+    app.add_url_rule(
+        "/recipes/new/",
+        view_func=NewRecipesView.as_view("new-recipe"),
+    )
     app.add_url_rule(
         "/ingredients/<uuid:id>",
         view_func=IngredientView.as_view(
