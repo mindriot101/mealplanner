@@ -2,12 +2,9 @@ import os
 
 from flask import Flask
 from flask_migrate import Migrate  # type: ignore
-from flask_restful import Api
 
 from .db import db
-from .routes.ingredients import IngredientsRoute
-from .routes.recipes import RecipesRoute
-from .routes.recipe import RecipeRoute
+from .routes import index, IngredientsView, NewIngredientsView
 
 
 def create_app(testing=False):
@@ -18,12 +15,14 @@ def create_app(testing=False):
     else:
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    api = Api(app)
+    app.secret_key = os.getenv("MEALPLANNER_SECRET_KEY", "secret-key")
     db.init_app(app)
     Migrate(app, db)
 
-    api.add_resource(IngredientsRoute, "/ingredients")
-    api.add_resource(RecipesRoute, "/recipes")
-    api.add_resource(RecipeRoute, "/recipes/<uuid:id>")
+    app.add_url_rule("/", "index", index)
+    app.add_url_rule("/ingredients/", view_func=IngredientsView.as_view("ingredients"))
+    app.add_url_rule(
+        "/ingredients/new/", view_func=NewIngredientsView.as_view("new-ingredients")
+    )
 
     return app

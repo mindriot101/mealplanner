@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action="{{ url_for('ingredients') }}">
+    {{ form.csrf_token }}
+    {{ form.name.label }} {{ form.name(size=20) }}
+    {{ form.fat.label }} {{ form.fat }}
+    {{ form.saturated_fat.label }} {{ form.saturated_fat }}
+    {{ form.carbohydrate.label }} {{ form.carbohydrate }}
+    {{ form.protein.label }} {{ form.protein }}
+    <input type="submit" value="Create">
+</form>
+
+{% endblock content %}
