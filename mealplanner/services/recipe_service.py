@@ -9,11 +9,14 @@ class InvalidForm(Exception):
 class RecipeService:
     def create_recipe_and_memberships(self, form):
         if not form["name"].strip():
-            raise InvalidForm()
+            raise InvalidForm("no name specified")
 
         recipe = self._create_recipe(form["name"])
 
         num_memberships = (len(form) - 1) // 2
+        if num_memberships < 1:
+            raise InvalidForm("no memberships found")
+
         for i in range(num_memberships):
             ingredient_name = form[f"ingredient-name-{i}"]
             ingredient_count = int(form[f"ingredient-count-{i}"])

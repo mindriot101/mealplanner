@@ -9,8 +9,10 @@ def test_no_name():
     form = {"name": ""}
     service = RecipeService()
 
-    with pytest.raises(InvalidForm):
+    with pytest.raises(InvalidForm) as exc_info:
         service.create_recipe_and_memberships(form)
+
+    assert str(exc_info.value) == "no name specified"
 
 
 def test_single_membership(app_context):
@@ -63,3 +65,15 @@ def test_two_memberships(app_context):
     assert memberships[1].recipes == recipes[0]
     assert memberships[1].ingredient.name == "toast"
     assert memberships[1].count == 12
+
+
+def test_no_memberships(app_context):
+    form = {
+        "name": "recipe",
+    }
+    service = RecipeService()
+
+    with pytest.raises(InvalidForm) as exc_info:
+        service.create_recipe_and_memberships(form)
+
+    assert str(exc_info.value) == "no memberships found"
