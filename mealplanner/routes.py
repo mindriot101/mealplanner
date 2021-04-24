@@ -4,7 +4,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask.views import MethodView
 from sqlalchemy.exc import IntegrityError
 
-from .models import Ingredient
+from .models import Ingredient, Recipe
 from .forms import NewIngredientForm
 from .services.recipe_service import InvalidForm
 from .db import db
@@ -64,13 +64,17 @@ class RecipesView(MethodView):
         self.recipe_service = recipe_service
 
     def get(self):
-        return render_template("recipes.html")
+        recipes = Recipe.query.all()
+        return render_template("recipes.html", recipes=recipes)
 
     def post(self):
         try:
             self.recipe_service.create_recipe_and_memberships(request.form)
         except InvalidForm as e:
             flash(str(e))
+            return redirect(url_for("new-recipe"))
+        except IntegrityError:
+            flash("recipe already exists")
             return redirect(url_for("new-recipe"))
         return redirect(url_for("recipes"))
 
