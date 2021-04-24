@@ -6,6 +6,8 @@
 
 <button id="add-ingredient">Add ingredient</button>
 
+<a href="{{ url_for('new-ingredients') }}">Create a new ingredient</a>
+
 <script type="text/javascript" src="{{ url_for('static', filename='js/new-recipe.js') }}"></script>
 
 {% endblock content %}

@@ -5,7 +5,8 @@ from flask.views import MethodView
 from sqlalchemy.exc import IntegrityError
 
 from .models import Ingredient
-from .forms import NewIngredientForm, NewRecipeForm
+from .forms import NewIngredientForm
+from .services.recipe_service import InvalidForm
 from .db import db
 
 
@@ -66,7 +67,11 @@ class RecipesView(MethodView):
         return render_template("recipes.html")
 
     def post(self):
-        self.recipe_service.create_recipe_and_memberships(request.form)
+        try:
+            self.recipe_service.create_recipe_and_memberships(request.form)
+        except InvalidForm as e:
+            flash(str(e))
+            return redirect(url_for("new-recipe"))
         return redirect(url_for("recipes"))
 
 

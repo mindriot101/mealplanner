@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, StringField, IntegerField, FieldList, FormField
+from wtforms import FloatField, StringField, IntegerField
 from wtforms.validators import DataRequired, Optional
 from wtforms.widgets.html5 import NumberInput
 
@@ -21,8 +21,3 @@ class NewIngredientForm(FlaskForm):
 class MembershipForm(FlaskForm):
     ingredient_name = StringField("Ingredient name", validators=[DataRequired()])
     count = IntegerField("Count", validators=[DataRequired()], widget=NumberInput())
-
-
-class NewRecipeForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    memberships = FieldList(FormField(MembershipForm), min_entries=1)

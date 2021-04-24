@@ -15,6 +15,7 @@ from .routes import (
 )
 from .api import ApiIngredientsView
 from .services.ingredient_service import IngredientService
+from .services.recipe_service import RecipeService
 
 try:
     from flask_debugtoolbar import DebugToolbarExtension
@@ -46,10 +47,14 @@ def create_app(testing=False):
 
     # Service objects
     ingredient_service = IngredientService()
+    recipe_service = RecipeService()
 
     # HTML routes
     app.add_url_rule("/", "index", index)
-    app.add_url_rule("/recipes/", view_func=RecipesView.as_view("recipes"))
+    app.add_url_rule(
+        "/recipes/",
+        view_func=RecipesView.as_view("recipes", recipe_service=recipe_service),
+    )
     app.add_url_rule(
         "/recipes/new/",
         view_func=NewRecipesView.as_view("new-recipe"),
