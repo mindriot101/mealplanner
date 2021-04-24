@@ -1,5 +1,7 @@
 import uuid
 
+from sqlalchemy import UniqueConstraint
+
 from .db import db
 from .uuid_type import UUID
 
@@ -26,6 +28,9 @@ class Ingredient(db.Model):
 class Recipe(db.Model):
     id = db.Column(UUID(), primary_key=True, default=uuid.uuid4, unique=True)
     name = db.Column(db.String, nullable=False, unique=True)
+
+    def __str__(self):
+        return self.name
 
     def to_dict(self):
         return {
@@ -55,10 +60,13 @@ class Allocation(db.Model):
     id = db.Column(UUID(), primary_key=True, default=uuid.uuid4, unique=True)
     meal = db.Column(db.String, nullable=False)
     day = db.Column(db.String, nullable=False)
-    membership_id = db.Column(UUID, db.ForeignKey("membership.id", ondelete="CASCADE"))
-    membership = db.relationship("Membership", backref="allocations")
-    # recipe_id = db.Column(UUID, db.ForeignKey("recipe.id", ondelete="CASCADE"))
-    # recipe = db.relationship("Recipe", back_populates="allocations")
+    recipe_id = db.Column(UUID, db.ForeignKey("recipe.id", ondelete="CASCADE"))
+    recipe = db.relationship("Recipe")
+
+    __table_args__ = (UniqueConstraint("meal", "day", name="idx_allocation_meal_day"),)
+
+    def __str__(self):
+        return f"{self.recipe}"
 
     def to_dict(self):
         return {

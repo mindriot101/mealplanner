@@ -103,4 +103,4 @@ class PlannerView(MethodView):
 
     def get(self):
         calendar = self.allocation_service.generate_calendar()
-        return render_template("planner.html")
+        return render_template("planner.html", calendar=calendar)

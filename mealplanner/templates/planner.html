@@ -1,4 +1,65 @@
 {% extends "base.html" %}
 
 {% block content %}
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Breakfast</th>
+            <th>Lunch</th>
+            <th>Dinner</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Monday</td>
+            <td>{{ calendar.fetch("monday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("monday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("monday", "dinner") or "" }}</td>
+        </tr>
+        <tr>
+            <td>Tuesday</td>
+            <td>{{ calendar.fetch("tuesday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("tuesday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("tuesday", "dinner") or "" }}</td>
+        </tr>
+        <tr>
+            <td>Wednesday</td>
+            <td>{{ calendar.fetch("wednesday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("wednesday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("wednesday", "dinner") or "" }}</td>
+        </tr>
+        <tr>
+            <td>Thursday</td>
+            <td>{{ calendar.fetch("thursday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("thursday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("thursday", "dinner") or "" }}</td>
+        </tr>
+        <tr>
+            <td>Friday</td>
+            <td>{{ calendar.fetch("friday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("friday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("friday", "dinner") or "" }}</td>
+        </tr>
+        <tr>
+            <td>Saturday</td>
+            <td>{{ calendar.fetch("saturday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("saturday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("saturday", "dinner") or "" }}</td>
+        </tr>
+        <tr>
+            <td>Sunday</td>
+            <td>{{ calendar.fetch("sunday", "breakfast") or "" }}</td>
+            <td>{{ calendar.fetch("sunday", "lunch") or "" }}</td>
+            <td>{{ calendar.fetch("sunday", "dinner") or "" }}</td>
+        </tr>
+        {#
+        {% for row in calendar.rows() %}
+        {% for col in row.columns() %}
+            {{ col.render() }}
+        {% endfor %}
+    {% endfor %}
+    #}
+    </tbody>
+</table>
 {% endblock content %}
