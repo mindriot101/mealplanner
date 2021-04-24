@@ -32,3 +32,34 @@ def test_single_membership(app_context):
     assert memberships[0].recipes == recipes[0]
     assert memberships[0].ingredient.name == "cheese"
     assert memberships[0].count == 5
+
+
+def test_two_memberships(app_context):
+    i1 = Ingredient(name="cheese")
+    i2 = Ingredient(name="toast")
+    db.session.add_all([i1, i2])
+    db.session.commit()
+
+    form = {
+        "name": "recipe",
+        "ingredient-name-0": "cheese",
+        "ingredient-count-0": "5",
+        "ingredient-name-1": "toast",
+        "ingredient-count-1": "12",
+    }
+    service = RecipeService()
+
+    service.create_recipe_and_memberships(form)
+
+    recipes = Recipe.query.all()
+    assert len(recipes) == 1
+    assert recipes[0].name == "recipe"
+
+    memberships = Membership.query.all()
+    assert len(memberships) == 2
+    assert memberships[0].recipes == recipes[0]
+    assert memberships[0].ingredient.name == "cheese"
+    assert memberships[0].count == 5
+    assert memberships[1].recipes == recipes[0]
+    assert memberships[1].ingredient.name == "toast"
+    assert memberships[1].count == 12
