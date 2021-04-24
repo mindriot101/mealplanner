@@ -95,3 +95,12 @@ class RecipeView(MethodView):
 class NewRecipesView(MethodView):
     def get(self):
         return render_template("new-recipe.html")
+
+
+class PlannerView(MethodView):
+    def __init__(self, allocation_service):
+        self.allocation_service = allocation_service
+
+    def get(self):
+        calendar = self.allocation_service.generate_calendar()
+        return render_template("planner.html")
