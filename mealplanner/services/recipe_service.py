@@ -26,6 +26,14 @@ class RecipeService:
                 raise InvalidForm(f"count '{ingredient_count_str}' not an integer")
             self._create_membership(recipe, ingredient_name, ingredient_count)
 
+    def get(self, id):
+        return Recipe.query.get(id)
+
+    def delete(self, id):
+        recipe = self.get(id)
+        db.session.delete(recipe)
+        db.session.commit()
+
     def _create_recipe(self, name):
         recipe = Recipe(name=name)
         db.session.add(recipe)

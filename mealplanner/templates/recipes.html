@@ -7,6 +7,9 @@
 {% for recipe in recipes %}
 <li>
     {{ recipe.name }}
+    <form method="POST" action="{{ url_for('recipe', id=recipe.id) }}">
+        <button type="submit">Delete</button>
+    </form>
 </li>
 {% endfor %}
 </ul>

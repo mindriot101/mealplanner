@@ -11,6 +11,7 @@ from .routes import (
     NewIngredientsView,
     IngredientView,
     RecipesView,
+    RecipeView,
     NewRecipesView,
 )
 from .api import ApiIngredientsView
@@ -54,6 +55,13 @@ def create_app(testing=False):
     app.add_url_rule(
         "/recipes/",
         view_func=RecipesView.as_view("recipes", recipe_service=recipe_service),
+    )
+    app.add_url_rule(
+        "/recipes/<uuid:id>",
+        view_func=RecipeView.as_view(
+            "recipe",
+            recipe_service=recipe_service,
+        ),
     )
     app.add_url_rule(
         "/recipes/new/",

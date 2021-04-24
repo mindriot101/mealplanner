@@ -79,6 +79,19 @@ class RecipesView(MethodView):
         return redirect(url_for("recipes"))
 
 
+class RecipeView(MethodView):
+    def __init__(self, recipe_service):
+        self.recipe_service = recipe_service
+
+    def get(self, id):
+        recipe = self.recipe_service.get(id)
+        return render_template("recipe.html", recipe=recipe)
+
+    def post(self, id):
+        self.recipe_service.delete(id)
+        return redirect(url_for("recipes"))
+
+
 class NewRecipesView(MethodView):
     def get(self):
         return render_template("new-recipe.html")
