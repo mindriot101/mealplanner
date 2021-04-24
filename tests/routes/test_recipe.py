@@ -1,7 +1,10 @@
+import pytest
+
 from mealplanner.models import Ingredient, Recipe
 from mealplanner.db import db
 
 
+@pytest.mark.skip
 def test_add_ingredient(client):
     i = Ingredient(name="cheese")
     r = Recipe(name="cheese on toast")
