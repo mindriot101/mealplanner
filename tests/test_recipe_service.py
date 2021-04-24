@@ -77,3 +77,17 @@ def test_no_memberships(app_context):
         service.create_recipe_and_memberships(form)
 
     assert str(exc_info.value) == "no memberships found"
+
+
+def test_number_validation(app_context):
+    form = {
+        "name": "recipe",
+        "ingredient-name-0": "cheese",
+        "ingredient-count-0": "not-an-integer",
+    }
+    service = RecipeService()
+
+    with pytest.raises(InvalidForm) as exc_info:
+        service.create_recipe_and_memberships(form)
+
+    assert str(exc_info.value) == "count 'not-an-integer' not an integer"

@@ -19,7 +19,11 @@ class RecipeService:
 
         for i in range(num_memberships):
             ingredient_name = form[f"ingredient-name-{i}"]
-            ingredient_count = int(form[f"ingredient-count-{i}"])
+            ingredient_count_str = form[f"ingredient-count-{i}"]
+            try:
+                ingredient_count = int(ingredient_count_str)
+            except ValueError:
+                raise InvalidForm(f"count '{ingredient_count_str}' not an integer")
             self._create_membership(recipe, ingredient_name, ingredient_count)
 
     def _create_recipe(self, name):
