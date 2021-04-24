@@ -59,17 +59,17 @@ class NewIngredientsView(MethodView):
 
 
 class RecipesView(MethodView):
+    def __init__(self, recipe_service):
+        self.recipe_service = recipe_service
+
     def get(self):
         return render_template("recipes.html")
 
     def post(self):
-        form = NewRecipeForm()
-        if request.form.get("add-ingredient", None) is not None:
-            form.memberships.append_entry()
-            return render_template("new-recipe.html", form=form)
+        self.recipe_service.create_recipe_and_memberships(request.form)
+        return redirect(url_for("recipes"))
 
 
 class NewRecipesView(MethodView):
     def get(self):
-        form = NewRecipeForm()
-        return render_template("new-recipe.html", form=form)
+        return render_template("new-recipe.html")

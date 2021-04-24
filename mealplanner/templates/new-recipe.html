@@ -2,26 +2,10 @@
 
 {% block content %}
 
-{% for field, errors in form.errors.items() %}
-<div>
-    {{ form[field].label }}: {{ ", ".join(errors) }}
-</div>
-{% endfor %}
+<form id="form" method="POST" action="{{ url_for('recipes') }}"></form>
 
-<form method="POST" action="{{ url_for('recipes') }}">
-    {{ form.csrf_token }}
-    {{ form.name.label }} {{ form.name(size=20) }}
-    {% for membership in form.memberships %}
-        {{ membership.hidden_tag() }}
-        {{ membership.ingredient_name.label }} {{ membership.ingredient_name }}
-        {{ membership.count.label }} {{ membership.count }}
-    {% endfor %}
-    
-    <input type="submit" value="Create">
-</form>
-<form method="POST" action="{{ url_for('recipes') }}">
-    <input type="hidden" id="add-ingredient" name="add-ingredient" value="true"/>
-    <input type="submit" value="Add ingredient">
-</form>
+<button id="add-ingredient">Add ingredient</button>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/new-recipe.js') }}"></script>
 
 {% endblock content %}

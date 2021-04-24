@@ -13,6 +13,7 @@ from .routes import (
     RecipesView,
     NewRecipesView,
 )
+from .api import ApiIngredientsView
 from .services.ingredient_service import IngredientService
 
 try:
@@ -46,6 +47,7 @@ def create_app(testing=False):
     # Service objects
     ingredient_service = IngredientService()
 
+    # HTML routes
     app.add_url_rule("/", "index", index)
     app.add_url_rule("/recipes/", view_func=RecipesView.as_view("recipes"))
     app.add_url_rule(
@@ -68,6 +70,11 @@ def create_app(testing=False):
     app.add_url_rule(
         "/ingredients/new/",
         view_func=NewIngredientsView.as_view("new-ingredients"),
+    )
+
+    # API routes
+    app.add_url_rule(
+        "/api/ingredients", view_func=ApiIngredientsView.as_view("api:ingredients")
     )
 
     return app
