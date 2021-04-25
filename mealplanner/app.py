@@ -16,6 +16,7 @@ from .routes import (
     PlannerView,
     NewAllocationView,
     DeleteAllocationView,
+    ShoppingListView,
 )
 from .api import ApiIngredientsView, ApiRecipesView
 from .services.ingredient_service import IngredientService
@@ -106,6 +107,13 @@ def create_app(testing=False):
         view_func=DeleteAllocationView.as_view(
             "delete-allocation",
             allocation_service=allocation_service,
+        ),
+    )
+
+    app.add_url_rule(
+        "/shoppinglist/",
+        view_func=ShoppingListView.as_view(
+            "shopping-list",
         ),
     )
 

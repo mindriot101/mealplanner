@@ -1,10 +1,11 @@
 import logging
+from collections import defaultdict
 
 from flask import render_template, redirect, url_for, flash, request
 from flask.views import MethodView
 from sqlalchemy.exc import IntegrityError
 
-from .models import Ingredient, Recipe
+from .models import Ingredient, Recipe, Allocation
 from .forms import NewIngredientForm, NewAllocationForm
 from .services.recipe_service import InvalidForm
 from .db import db
@@ -131,3 +132,19 @@ class DeleteAllocationView(MethodView):
     def post(self, id):
         self.allocation_service.delete(id)
         return redirect(url_for("planner"))
+
+
+class ShoppingListView(MethodView):
+    def get(self):
+        allocations = Allocation.query.all()
+        # TODO: stop the n+1
+        accum = defaultdict(int)
+        for a in allocations:
+            r = a.recipe
+            if not r:
+                continue
+            for m in r.memberships:
+                i = m.ingredient
+                accum[i.name] += m.count
+
+        return render_template("shopping-list.html", ingredients=accum)
