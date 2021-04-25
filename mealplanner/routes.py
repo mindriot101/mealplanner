@@ -122,3 +122,12 @@ class NewAllocationView(MethodView):
             self.allocation_service.allocate(day, meal, form)
             return redirect(url_for("planner"))
         return render_template("new-allocation.html", form=form, day=day, meal=meal)
+
+
+class DeleteAllocationView(MethodView):
+    def __init__(self, allocation_service):
+        self.allocation_service = allocation_service
+
+    def post(self, id):
+        self.allocation_service.delete(id)
+        return redirect(url_for("planner"))

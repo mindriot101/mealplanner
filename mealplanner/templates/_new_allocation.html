@@ -1,6 +1,11 @@
 <td>
     {% if calendar.has(day, meal) %}
-        {{ calendar.fetch(day, meal) }}
+    {% with allocation = calendar.fetch(day, meal) %}
+        {{ allocation }}
+        <form method="POST" action="{{ url_for('delete-allocation', id=allocation.id) }}">
+            <input type="submit" value="X">
+        </form>
+        {% endwith %}
     {% else %}
         <a href="{{ url_for('new-allocation', day=day, meal=meal) }}">Set recipe</a>
     {% endif %}

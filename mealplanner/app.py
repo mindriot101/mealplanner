@@ -15,6 +15,7 @@ from .routes import (
     NewRecipesView,
     PlannerView,
     NewAllocationView,
+    DeleteAllocationView,
 )
 from .api import ApiIngredientsView, ApiRecipesView
 from .services.ingredient_service import IngredientService
@@ -97,6 +98,14 @@ def create_app(testing=False):
         "/planner/<day>/<meal>/new",
         view_func=NewAllocationView.as_view(
             "new-allocation", allocation_service=allocation_service
+        ),
+    )
+
+    app.add_url_rule(
+        "/planner/<uuid:id>",
+        view_func=DeleteAllocationView.as_view(
+            "delete-allocation",
+            allocation_service=allocation_service,
         ),
     )
 

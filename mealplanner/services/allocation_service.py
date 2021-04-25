@@ -15,6 +15,14 @@ class AllocationService:
         db.session.add(a)
         db.session.commit()
 
+    def delete(self, id):
+        allocation = self.get(id)
+        db.session.delete(allocation)
+        db.session.commit()
+
+    def get(self, id):
+        return Allocation.query.get(id)
+
 
 class Calendar:
     def __init__(self, allocations):
