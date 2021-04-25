@@ -13,45 +13,101 @@
     <tbody>
         <tr>
             <td>Monday</td>
-            <td>{{ calendar.fetch("monday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("monday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("monday", "dinner") or "" }}</td>
+            {% with day = "monday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Tuesday</td>
-            <td>{{ calendar.fetch("tuesday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("tuesday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("tuesday", "dinner") or "" }}</td>
+            {% with day = "tuesday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Wednesday</td>
-            <td>{{ calendar.fetch("wednesday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("wednesday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("wednesday", "dinner") or "" }}</td>
+            {% with day = "wednesday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Thursday</td>
-            <td>{{ calendar.fetch("thursday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("thursday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("thursday", "dinner") or "" }}</td>
+            {% with day = "thursday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Friday</td>
-            <td>{{ calendar.fetch("friday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("friday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("friday", "dinner") or "" }}</td>
+            {% with day = "friday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Saturday</td>
-            <td>{{ calendar.fetch("saturday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("saturday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("saturday", "dinner") or "" }}</td>
+            {% with day = "saturday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Sunday</td>
-            <td>{{ calendar.fetch("sunday", "breakfast") or "" }}</td>
-            <td>{{ calendar.fetch("sunday", "lunch") or "" }}</td>
-            <td>{{ calendar.fetch("sunday", "dinner") or "" }}</td>
+            {% with day = "sunday" %}
+                {% with meal = "breakfast" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "lunch" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+                {% with meal = "dinner" %}
+                    {% include "_new_allocation.html" %}
+                {% endwith %}
+            {% endwith %}
         </tr>
         {#
         {% for row in calendar.rows() %}
