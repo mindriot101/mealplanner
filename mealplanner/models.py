@@ -28,6 +28,12 @@ class Ingredient(db.Model):
 class Recipe(db.Model):
     id = db.Column(UUID(), primary_key=True, default=uuid.uuid4, unique=True)
     name = db.Column(db.String, nullable=False, unique=True)
+    allocations = db.relationship(
+        "Allocation",
+        back_populates="recipe",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
 
     def __str__(self):
         return self.name
@@ -61,7 +67,7 @@ class Allocation(db.Model):
     meal = db.Column(db.String, nullable=False)
     day = db.Column(db.String, nullable=False)
     recipe_id = db.Column(UUID, db.ForeignKey("recipe.id", ondelete="CASCADE"))
-    recipe = db.relationship("Recipe")
+    recipe = db.relationship("Recipe", back_populates="allocations")
 
     __table_args__ = (UniqueConstraint("meal", "day", name="idx_allocation_meal_day"),)
 
