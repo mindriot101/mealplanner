@@ -5,7 +5,7 @@ from flask.views import MethodView
 from sqlalchemy.exc import IntegrityError
 
 from .models import Ingredient, Recipe
-from .forms import NewIngredientForm, AllocateForm
+from .forms import NewIngredientForm, NewAllocationForm
 from .services.recipe_service import InvalidForm
 from .db import db
 
@@ -105,6 +105,20 @@ class PlannerView(MethodView):
         calendar = self.allocation_service.generate_calendar()
         return render_template("planner.html", calendar=calendar)
 
-    def post(self):
-        form = AllocateForm()
-        return render_template("choose-recipe.html", form=form)
+
+class NewAllocationView(MethodView):
+    def __init__(self, allocation_service):
+        self.allocation_service = allocation_service
+
+    def get(self, day, meal):
+        form = NewAllocationForm()
+        form.recipe.choices = [(str(r.id), r.name) for r in Recipe.query.all()]
+        return render_template("new-allocation.html", form=form, day=day, meal=meal)
+
+    def post(self, day, meal):
+        form = NewAllocationForm()
+        form.recipe.choices = [(str(r.id), r.name) for r in Recipe.query.all()]
+        if form.validate_on_submit():
+            self.allocation_service.allocate(day, meal, form)
+            return redirect(url_for("planner"))
+        return render_template("new-allocation.html", form=form, day=day, meal=meal)

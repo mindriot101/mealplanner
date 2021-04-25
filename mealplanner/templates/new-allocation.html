@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form id="form" action="{{ url_for("new-allocation", day=day, meal=meal) }}" method="POST">
+    {{ form.csrf_token }}
+    {{ form.recipe.label }} {{ form.recipe }}
+    <input type="submit" value="Set">
+</form>
+{% endblock content %}

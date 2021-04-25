@@ -2,13 +2,7 @@
     {% if calendar.has(day, meal) %}
         {{ calendar.fetch(day, meal) }}
     {% else %}
-        {% with form = calendar.build_form(day=day, meal=meal) %}
-            <form method="POST" action="{{ url_for('planner') }}">
-                {{ form.day }}
-                {{ form.meal }}
-                <input type="submit" value="Set recipe">
-            </form>
-        {% endwith %}
+        <a href="{{ url_for('new-allocation', day=day, meal=meal) }}">Set recipe</a>
     {% endif %}
 </td>
 

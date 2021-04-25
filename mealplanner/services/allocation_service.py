@@ -1,11 +1,19 @@
-from ..models import Allocation
+from ..models import Allocation, Recipe
 from ..forms import AllocateForm
+from ..db import db
 
 
 class AllocationService:
     def generate_calendar(self):
         allocations = Allocation.query.all()
         return Calendar(allocations)
+
+    def allocate(self, day, meal, form):
+        recipe_id = form.recipe.data
+        recipe = Recipe.query.get(recipe_id)
+        a = Allocation(meal=meal, day=day, recipe=recipe)
+        db.session.add(a)
+        db.session.commit()
 
 
 class Calendar:

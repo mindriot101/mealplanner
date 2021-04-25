@@ -50,7 +50,7 @@ class Membership(db.Model):
     def to_dict(self):
         return {
             "id": str(self.id),
-            "recipe": self.recipe.to_dict(),
+            "recipe": self.recipes.to_dict(),
             "ingredient": self.ingredient.to_dict(),
             "count": self.count,
         }

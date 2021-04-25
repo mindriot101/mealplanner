@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, StringField, IntegerField, HiddenField
+from wtforms import FloatField, StringField, IntegerField, HiddenField, SelectField
 from wtforms.validators import DataRequired, Optional
 from wtforms.widgets.html5 import NumberInput
 
@@ -26,3 +26,7 @@ class MembershipForm(FlaskForm):
 class AllocateForm(FlaskForm):
     day = HiddenField("day")
     meal = HiddenField("meal")
+
+
+class NewAllocationForm(FlaskForm):
+    recipe = SelectField("recipe")
