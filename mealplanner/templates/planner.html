@@ -109,13 +109,9 @@
                 {% endwith %}
             {% endwith %}
         </tr>
-        {#
-        {% for row in calendar.rows() %}
-        {% for col in row.columns() %}
-            {{ col.render() }}
-        {% endfor %}
-    {% endfor %}
-    #}
     </tbody>
 </table>
+
+<a href="{{ url_for("new-recipe") }}">Create a recipe</a>
+
 {% endblock content %}
