@@ -38,6 +38,11 @@ class FormBuilder {
       ip.appendChild(option);
     });
 
+    const l = document.createElement("label");
+    l.innerHTML = "Ingredient";
+    l.htmlFor = id;
+
+    this.form.insertBefore(l, this.submit);
     this.form.insertBefore(ip, this.submit);
   }
 
@@ -45,6 +50,7 @@ class FormBuilder {
     const ip = document.createElement("input");
     ip.id = key;
     ip.name = key;
+    ip.className = "border";
     if (type) {
       ip.type = type;
     }
@@ -58,6 +64,7 @@ class FormBuilder {
   addSubmit() {
     const ip = document.createElement("input");
     ip.type = "submit";
+    ip.className = "bg-blue-500 text-white rounded-full p-2"
     this.form.appendChild(ip);
     return ip;
   }

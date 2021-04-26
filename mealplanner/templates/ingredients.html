@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Ingredients</h2>
+<div class="flex flex-col">
+    <h2 class="text-2xl mb-4">Ingredients</h2>
 
-<ul>
-{% for ingredient in ingredients %}
-<li>
-    <a href="{{ url_for('ingredient', id=ingredient.id) }}">{{ ingredient.name }}</a>
-    <form method="POST" action="{{ url_for('ingredient', id=ingredient.id) }}">
-        <button type="submit">Delete</button>
-    </form>
-</li>
-{% endfor %}
-</ul>
+    <a class="md:hidden underline mb-4" href="{{ url_for('new-ingredients') }}">Create ingredient</a>
 
-<a href="{{ url_for('new-ingredients') }}">Create ingredient</a>
+    <ul class="list-none">
+        {% for ingredient in ingredients %}
+        <li class="flex justify-between">
+            <a href="{{ url_for('ingredient', id=ingredient.id) }}">{{ ingredient.name }}</a>
+            <form method="POST" action="{{ url_for('ingredient', id=ingredient.id) }}">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock content %}

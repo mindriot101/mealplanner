@@ -104,7 +104,19 @@ class PlannerView(MethodView):
 
     def get(self):
         calendar = self.allocation_service.generate_calendar()
-        return render_template("planner.html", calendar=calendar)
+        days = [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ]
+        meals = ["breakfast", "lunch", "dinner"]
+        return render_template(
+            "planner.html", calendar=calendar, days=days, meals=meals
+        )
 
 
 class NewAllocationView(MethodView):

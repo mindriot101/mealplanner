@@ -1,117 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th>Breakfast</th>
-            <th>Lunch</th>
-            <th>Dinner</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Monday</td>
-            {% with day = "monday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-        <tr>
-            <td>Tuesday</td>
-            {% with day = "tuesday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-        <tr>
-            <td>Wednesday</td>
-            {% with day = "wednesday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-        <tr>
-            <td>Thursday</td>
-            {% with day = "thursday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-        <tr>
-            <td>Friday</td>
-            {% with day = "friday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-        <tr>
-            <td>Saturday</td>
-            {% with day = "saturday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-        <tr>
-            <td>Sunday</td>
-            {% with day = "sunday" %}
-                {% with meal = "breakfast" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "lunch" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-                {% with meal = "dinner" %}
-                    {% include "_new_allocation.html" %}
-                {% endwith %}
-            {% endwith %}
-        </tr>
-    </tbody>
-</table>
+<div class="flex flex-col">
+    <h2 class="text-2xl mb-4">Planner</h2>
 
-<a href="{{ url_for("new-recipe") }}">Create a recipe</a>
+    <a class="md:hidden underline mb-4" href="{{ url_for('new-recipe') }}">Create a recipe</a>
 
+    <div>
+        {% for day in days %}
+            <div class="flex flex-col shadow-lg rounded-md p-6 space-y-2">
+                <h3 class="text-xl">{{ day|capitalize }}</h3>
+                {% for meal in meals %}
+                    <div class="flex justify-between p-2">
+                        <div>{{ meal|capitalize }}</div>
+                        <div>{% include "_new_allocation.html" %}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
 {% endblock content %}

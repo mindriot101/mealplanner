@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Recipes</h2>
+<div class="flex flex-col">
+    <h2 class="text-2xl mb-4">Recipes</h2>
 
-<ul>
-{% for recipe in recipes %}
-<li>
-    {{ recipe.name }}
-    <form method="POST" action="{{ url_for('recipe', id=recipe.id) }}">
-        <button type="submit">Delete</button>
-    </form>
-</li>
-{% endfor %}
-</ul>
+    <a class="md:hidden underline mb-4" href="{{ url_for('new-recipe') }}">Create recipe</a>
 
-<a href="{{ url_for('new-recipe') }}">Create recipe</a>
+    <ul class="list-none">
+        {% for recipe in recipes %}
+        <li class="flex justify-between">
+            {{ recipe.name }}
+            <form method="POST" action="{{ url_for('recipe', id=recipe.id) }}">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
 
 {% endblock content %}

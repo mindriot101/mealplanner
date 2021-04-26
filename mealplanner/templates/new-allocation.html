@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form id="form" action="{{ url_for("new-allocation", day=day, meal=meal) }}" method="POST">
-    {{ form.csrf_token }}
-    {{ form.recipe.label }} {{ form.recipe }}
-    <input type="submit" value="Set">
-</form>
+<div class="flex flex-col space-y-4">
+    <h2 class="text-2xl mb-4">{{ day|capitalize }} {{ meal }}</h2>
+    <form class="shadow p-4 px-6" id="form" action="{{ url_for("new-allocation", day=day, meal=meal) }}" method="POST">
+        {{ form.csrf_token }}
+        <div class="flex items-baseline justify-between">
+            <div>{{ form.recipe }}</div>
+            <input class="p-2 px-4 bg-blue-400 rounded-full text-white" type="submit" value="Set">
+        </div>
+    </form>
+</div>
 {% endblock content %}

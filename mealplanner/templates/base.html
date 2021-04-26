@@ -1,25 +1,34 @@
 <!doctype html>
 <html>
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <title>Meal planner</title>
     </head>
-    <body>
-        <h1>Meal planner</h1>
-        <nav>
-            <a href="{{ url_for('shopping-list') }}">Shopping list</a>
-            <a href="{{ url_for('planner') }}">Planner</a>
-            <a href="{{ url_for('ingredients') }}">Ingredients</a>
-            <a href="{{ url_for('recipes') }}">Recipes</a>
-        </nav>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        {% block content %}
-        {% endblock content %}
+    <body class="text-gray-800">
+        <div class="container mx-auto flex flex-col mx-auto p-4 bg-blue-500 shadow-xl text-white">
+            <h1 class="text-4xl text-center mb-4 mt-4">Meal planner</h1>
+            <nav class="underline flex flex-col">
+                <a href="{{ url_for('shopping-list') }}">Shopping list</a>
+                <a href="{{ url_for('planner') }}">Planner</a>
+                <a href="{{ url_for('ingredients') }}">Ingredients</a>
+                <a href="{{ url_for('recipes') }}">Recipes</a>
+            </nav>
+        </div>
+        <div class="p-4 px-6">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="my-2 p-4 px-6 bg-red-100 border-2 border-red-200 rounded-lg">
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}
+            {% endblock content %}
+        </div>
     </body>
 </html>
