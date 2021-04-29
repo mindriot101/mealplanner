@@ -6,10 +6,10 @@
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
         <title>Meal planner</title>
     </head>
-    <body class="text-gray-800">
-        <div class="container mx-auto flex flex-col mx-auto p-4 bg-blue-500 shadow-xl text-white">
+    <body class="text-gray-800 container mx-auto">
+        <div class="mx-auto flex flex-col mx-auto p-4 bg-blue-500 shadow-xl text-white">
             <h1 class="text-4xl text-center mb-4 mt-4">Meal planner</h1>
-            <nav class="underline flex flex-col">
+            <nav class="underline flex flex-col md:flex-row md:justify-around">
                 <a href="{{ url_for('shopping-list') }}">Shopping list</a>
                 <a href="{{ url_for('planner') }}">Planner</a>
                 <a href="{{ url_for('ingredients') }}">Ingredients</a>
