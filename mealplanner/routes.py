@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def index():
-    return render_template("index.html")
+    return redirect("planner", code=301)
 
 
 class IngredientView(MethodView):
