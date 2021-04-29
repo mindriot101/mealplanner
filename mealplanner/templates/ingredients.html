@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex flex-col">
+<div class="md:block flex flex-col">
     <h2 class="text-2xl mb-4">Ingredients</h2>
 
     <a class="md:hidden underline mb-4" href="{{ url_for('new-ingredients') }}">Create ingredient</a>
 
-    <ul class="list-none">
+    <ul class="list-none md:flex md:flex-wrap">
         {% for ingredient in ingredients %}
-        <li class="flex justify-between">
-            <a href="{{ url_for('ingredient', id=ingredient.id) }}">{{ ingredient.name }}</a>
+        <li class="flex md:flex-col md:justify-between md:shadow-xl md:rounded-2xl md:p-16 md:mx-4 md:my-2 md:ml-0">
+            <a class="md:my-2" href="{{ url_for('ingredient', id=ingredient.id) }}">{{ ingredient.name }}</a>
             <form method="POST" action="{{ url_for('ingredient', id=ingredient.id) }}">
-                <button type="submit">Delete</button>
+                <button type="submit" class="md:text-gray-500 md:underline">Delete</button>
             </form>
         </li>
         {% endfor %}
     </ul>
+
+    <a class="bg-blue-700 rounded-lg text-white md:inline-block mt-4 px-4 py-2" href="{{ url_for('new-ingredients') }}">
+        New
+    </a>
 </div>
 
 {% endblock content %}
