@@ -36,3 +36,4 @@ def test_deleting_recipe_doesnt_delete_ingredient(app_context):
     db.session.commit()
 
     assert set(Ingredient.query.all()) == {i1, i2}
+    assert list(Membership.query.all()) == []

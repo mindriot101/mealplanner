@@ -37,6 +37,11 @@ class Recipe(db.Model):
         cascade="all, delete",
         passive_deletes=True,
     )
+    memberships = db.relationship(
+        "Membership",
+        cascade="all,delete-orphan",
+        backref="recipes",
+    )
 
     def __str__(self):
         return self.name
@@ -52,7 +57,6 @@ class Membership(db.Model):
     id = db.Column(UUID(), primary_key=True, default=uuid.uuid4, unique=True)
     ingredient_id = db.Column(UUID, db.ForeignKey("ingredient.id", ondelete="CASCADE"))
     recipe_id = db.Column(UUID, db.ForeignKey("recipe.id", ondelete="CASCADE"))
-    recipes = db.relationship("Recipe", backref="memberships")
     count = db.Column(db.Integer, nullable=False)
 
     def to_dict(self):
