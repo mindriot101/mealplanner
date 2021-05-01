@@ -1,0 +1,10 @@
+<h1>Products</h2>
+
+<ul>
+{% for product in products %}
+<li>
+    <p><img width="64" src="{{ product.image_url }}"></img></p>
+    <p>{{ product }}</p>
+</li>
+{% endfor %}
+</ul>
