@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def index():
-    return redirect("planner", code=301)
+    return redirect("planner")
 
 
 class IngredientView(MethodView):
@@ -24,9 +24,29 @@ class IngredientView(MethodView):
 
     def get(self, id):
         ingredient = self.ingredient_service.get(id)
-        return render_template("ingredient.html", ingredient=ingredient)
+        form = NewIngredientForm(obj=ingredient)
+        return render_template("ingredient.html", ingredient=ingredient, form=form)
 
     def post(self, id):
+        method = request.form.get("method")
+        if method == "DELETE":
+            return self._delete_ingredient(id)
+        elif method == "PUT":
+            return self._update_ingredient(id)
+        else:
+            raise ValueError(f"bad form method: {request.form.get('method')}")
+
+    def _update_ingredient(self, id):
+        ingredient = self.ingredient_service.get(id)
+        form = NewIngredientForm(obj=ingredient)
+        if form.validate_on_submit():
+            form.populate_obj(ingredient)
+            db.session.add(ingredient)
+            db.session.commit()
+            return redirect(url_for("ingredient", id=id))
+        return render_template("ingredient.html", ingredient=ingredient, form=form)
+
+    def _delete_ingredient(self, id):
         self.ingredient_service.delete(id)
         return redirect(url_for("ingredients"))
 

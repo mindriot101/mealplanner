@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ recipe.name }}</h2>
+<div class="flex flex-col space-y-4">
+<h2 class="text-2xl font-semibold">{{ recipe.name }}</h2>
 
+<h3 class="text-lg">Ingredients</h3>
 <ul>
+    {% for membership in recipe.memberships %}
+    <li>
+        <span>
+            {{ membership.count }}x
+        <a class="underline" href="{{ url_for('ingredient', id=membership.ingredient.id) }}">
+            {{ membership.ingredient.name }}
+        </a>
+        </span>
+    </li>
+    {% endfor %}
 </ul>
 
-<a href="{{ url_for('recipes') }}">Recipes</a>
+<a class="underline" href="{{ url_for('recipes') }}">Back to recipes</a>
+</div>
 
 {% endblock content %}
 

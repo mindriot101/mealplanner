@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
+{% import "_ingredient_form.html" as ingredient_form %}
+
 {% block content %}
-<h2>{{ ingredient.name }}</h2>
+<div class="md:block flex flex-col space-y-4">
+<h2 class="text-2xl font-semibold">{{ ingredient.name }}</h2>
+
+{{ ingredient_form.ingredient_form(form, url_for('ingredient', id=ingredient.id), method="PUT", button_text="Update") }}
 
 <ul>
 {% if ingredient.fat %}<li>Fat: {{ ingredient.fat }}</li>{% endif %}
@@ -10,7 +15,8 @@
 {% if ingredient.protein %}<li>Protein: {{ ingredient.protein }}</li>{% endif %}
 </ul>
 
-<a href="{{ url_for('ingredients') }}">Ingredients</a>
+<a class="underline" href="{{ url_for('ingredients') }}">Back to ingredients</a>
 
+</div>
 {% endblock content %}
 

@@ -78,3 +78,7 @@ def search():
     res = islice(paginate(openfoodfacts.products.advanced_search, search_params), 0, 10)
     products = (ProductPresenter(product) for product in res)
     return render_template("results.html", products=products)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5004, debug=True)

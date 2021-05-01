@@ -1,0 +1,29 @@
+{% macro ingredient_form(form, url, method, button_text) %}
+
+{% for field, errors in form.errors.items() %}
+<div>
+    {{ form[field].label }}: {{ ", ".join(errors) }}
+</div>
+{% endfor %}
+
+<form method="POST" action="{{ url }}" class="flex flex-col space-y-4">
+    {{ form.csrf_token }}
+    <input type="hidden" name="method" value="{{ method }}">
+    <div class="flex flex-col">
+        {{ form.name.label }} {{ form.name(size=20, class_="border") }}
+    </div>
+    <div class="flex flex-col">
+        {{ form.fat.label }} {{ form.fat(class_="border") }}
+    </div>
+    <div class="flex flex-col">
+        {{ form.saturated_fat.label }} {{ form.saturated_fat(class_="border") }}
+    </div>
+    <div class="flex flex-col">
+        {{ form.carbohydrate.label }} {{ form.carbohydrate(class_="border") }}
+    </div>
+    <div class="flex flex-col">
+        {{ form.protein.label }} {{ form.protein(class_="border") }}
+    </div>
+    <input type="submit" value="{{ button_text }}">
+</form>
+{%- endmacro %}

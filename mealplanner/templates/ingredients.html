@@ -11,6 +11,7 @@
         <li class="flex md:flex-col md:justify-between md:shadow-xl md:rounded-2xl md:p-16 md:mx-4 md:my-2 md:ml-0">
             <a class="md:my-2" href="{{ url_for('ingredient', id=ingredient.id) }}">{{ ingredient.name }}</a>
             <form method="POST" action="{{ url_for('ingredient', id=ingredient.id) }}">
+                <input type="hidden" name="method" value="DELETE">
                 <button type="submit" class="md:text-gray-500 md:underline">Delete</button>
             </form>
         </li>
