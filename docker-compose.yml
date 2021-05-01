@@ -1,0 +1,14 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "9080:80"
+    environment:
+      DATABASE_URL: sqlite:////data/db.sqlite3
+      MEALPLANNER_SECRET_KEY:
+    volumes:
+      - mealplanner-data:/data
+    restart: always
+volumes:
+  mealplanner-data:
