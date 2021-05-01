@@ -13,6 +13,9 @@ class Ingredient(db.Model):
     saturated_fat = db.Column(db.Float)
     carbohydrate = db.Column(db.Float)
     protein = db.Column(db.Float)
+    membership = db.relationship(
+        "Membership", cascade="all,delete-orphan", backref="ingredient"
+    )
 
     def to_dict(self):
         return {
@@ -48,7 +51,6 @@ class Recipe(db.Model):
 class Membership(db.Model):
     id = db.Column(UUID(), primary_key=True, default=uuid.uuid4, unique=True)
     ingredient_id = db.Column(UUID, db.ForeignKey("ingredient.id", ondelete="CASCADE"))
-    ingredient = db.relationship("Ingredient", backref="memberships")
     recipe_id = db.Column(UUID, db.ForeignKey("recipe.id", ondelete="CASCADE"))
     recipes = db.relationship("Recipe", backref="memberships")
     count = db.Column(db.Integer, nullable=False)
