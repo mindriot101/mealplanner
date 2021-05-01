@@ -4,6 +4,7 @@ from collections import defaultdict
 from flask import render_template, redirect, url_for, flash, request
 from flask.views import MethodView
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
 
 from .models import Ingredient, Recipe, Allocation
 from .forms import NewIngredientForm, NewAllocationForm
@@ -168,7 +169,7 @@ class DeleteAllocationView(MethodView):
 
 class ShoppingListView(MethodView):
     def get(self):
-        allocations = Allocation.query.all()
+        allocations = Allocation.query.options(joinedload(Allocation.recipe)).all()
         # TODO: stop the n+1
         accum = defaultdict(int)
         for a in allocations:
