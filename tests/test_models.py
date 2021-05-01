@@ -8,8 +8,8 @@ def test_deleting_ingredient_keeps_recipe(app_context):
     i1 = Ingredient(name="i1")
     i2 = Ingredient(name="i2")
     r = Recipe(name="r")
-    m1 = Membership(ingredient=i1, recipes=r, count=1)
-    m2 = Membership(ingredient=i2, recipes=r, count=2)
+    m1 = Membership(ingredient=i1, recipe=r, count=1)
+    m2 = Membership(ingredient=i2, recipe=r, count=2)
 
     db.session.add(m1)
     db.session.add(m2)
@@ -25,8 +25,8 @@ def test_deleting_recipe_doesnt_delete_ingredient(app_context):
     i1 = Ingredient(name="i1")
     i2 = Ingredient(name="i2")
     r = Recipe(name="r")
-    m1 = Membership(ingredient=i1, recipes=r, count=1)
-    m2 = Membership(ingredient=i2, recipes=r, count=2)
+    m1 = Membership(ingredient=i1, recipe=r, count=1)
+    m2 = Membership(ingredient=i2, recipe=r, count=2)
 
     db.session.add(m1)
     db.session.add(m2)

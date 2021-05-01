@@ -31,7 +31,7 @@ def test_single_membership(app_context):
 
     memberships = Membership.query.all()
     assert len(memberships) == 1
-    assert memberships[0].recipes == recipes[0]
+    assert memberships[0].recipe == recipes[0]
     assert memberships[0].ingredient.name == "cheese"
     assert memberships[0].count == 5
 
@@ -59,10 +59,10 @@ def test_two_memberships(app_context):
 
     memberships = Membership.query.all()
     assert len(memberships) == 2
-    assert memberships[0].recipes == recipes[0]
+    assert memberships[0].recipe == recipes[0]
     assert memberships[0].ingredient.name == "cheese"
     assert memberships[0].count == 5
-    assert memberships[1].recipes == recipes[0]
+    assert memberships[1].recipe == recipes[0]
     assert memberships[1].ingredient.name == "toast"
     assert memberships[1].count == 12
 

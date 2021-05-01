@@ -15,7 +15,7 @@ def test_generate_blank_calendar(app_context):
 def test_generate_single_day(app_context):
     i = Ingredient(name="cheese")
     r = Recipe(name="cheese on toast")
-    Membership(ingredient=i, recipes=r, count=2)
+    Membership(ingredient=i, recipe=r, count=2)
     allocation = Allocation(meal="lunch", day="tuesday", recipe=r)
     db.session.add(allocation)
     db.session.commit()

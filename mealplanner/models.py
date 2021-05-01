@@ -13,7 +13,7 @@ class Ingredient(db.Model):
     saturated_fat = db.Column(db.Float)
     carbohydrate = db.Column(db.Float)
     protein = db.Column(db.Float)
-    membership = db.relationship(
+    memberships = db.relationship(
         "Membership", cascade="all,delete-orphan", backref="ingredient"
     )
 
@@ -40,7 +40,7 @@ class Recipe(db.Model):
     memberships = db.relationship(
         "Membership",
         cascade="all,delete-orphan",
-        backref="recipes",
+        backref="recipe",
     )
 
     def __str__(self):
@@ -62,7 +62,7 @@ class Membership(db.Model):
     def to_dict(self):
         return {
             "id": str(self.id),
-            "recipe": self.recipes.to_dict(),
+            "recipe": self.recipe.to_dict(),
             "ingredient": self.ingredient.to_dict(),
             "count": self.count,
         }

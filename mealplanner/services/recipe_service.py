@@ -42,7 +42,7 @@ class RecipeService:
 
     def _create_membership(self, recipe, name, count):
         ingredient = Ingredient.query.filter(Ingredient.name == name).first()
-        membership = Membership(ingredient=ingredient, recipes=recipe, count=count)
+        membership = Membership(ingredient=ingredient, recipe=recipe, count=count)
         db.session.add(membership)
         db.session.commit()
         return membership
