@@ -10,5 +10,10 @@ services:
     volumes:
       - mealplanner-data:/data
     restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mealplanner.rule=Host(`mealplanner.simonrw.com`)"
+      - "traefik.http.routers.mealplanner.entrypoints=websecure"
+      - "traefik.http.routers.mealplanner.tls.certresolver=myresolver"
 volumes:
   mealplanner-data:
