@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex flex-col">
+<div class="md:block flex flex-col">
     <h2 class="text-2xl mb-4">Recipes</h2>
 
     <a class="md:hidden underline mb-4" href="{{ url_for('new-recipe') }}">Create recipe</a>
@@ -9,13 +9,17 @@
     <ul class="list-none">
         {% for recipe in recipes %}
         <li class="flex justify-between">
-            {{ recipe.name }}
+            <a class="underline" href="{{ url_for('recipe', id=recipe.id) }}">{{ recipe.name }}</a>
             <form method="POST" action="{{ url_for('recipe', id=recipe.id) }}">
                 <button type="submit">Delete</button>
             </form>
         </li>
         {% endfor %}
     </ul>
+
+    <a class="bg-blue-700 rounded-lg text-white md:inline-block mt-4 px-4 py-2" href="{{ url_for('new-recipe') }}">
+        New
+    </a>
 
 </div>
 
