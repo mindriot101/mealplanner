@@ -2,18 +2,26 @@ version: "3"
 services:
   web:
     build: .
-    ports:
-      - "9080:80"
     environment:
       DATABASE_URL: sqlite:////data/db.sqlite3
       MEALPLANNER_SECRET_KEY:
+      FLASK_APP: mealplanner.app
+    container_name: mealplanner
     volumes:
       - mealplanner-data:/data
     restart: always
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mealplanner.rule=Host(`mealplanner.simonrw.com`)"
-      - "traefik.http.routers.mealplanner.entrypoints=websecure"
-      - "traefik.http.routers.mealplanner.tls.certresolver=myresolver"
+      - traefik.enable=true
+      - traefik.http.routers.mealplanner.rule=Host(`mealplanner.simonrw.com`)
+      - traefik.http.routers.mealplanner.entrypoints=web,websecure
+      - traefik.http.routers.mealplanner.tls.certresolver=myresolver
+      - traefik.http.middlewares.httpsredirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.httpsredirect.redirectscheme.permanent=true
+      - traefik.http.routers.mealplanner.middlewares=httpsredirect
+    networks:
+      - traefik
 volumes:
   mealplanner-data:
+networks:
+  traefik:
+    external: true
